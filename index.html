@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>XO</title>
+    
+    <style>
+       body{
+        background-image:url(th\ \(3\).jpg);
+background-repeat: no-repeat;
+background-size: cover;
+background-clip: fixed;
+
+        }
+
+#manar-view{
+
+width:500px;
+margin: 0 auto;
+border:1px solid;
+
+
+}
+#welcome{
+
+ padding: 10px;
+font-family: cursive;
+font-size: 20px;
+font-weight: bold;
+text-align: center;
+background-color:rgb(2, 48, 49) ;
+font-weight: bold;
+font-style:italic;
+color: rgb(255, 224, 238);
+}
+#manar-info{
+
+padding: 10px;
+font-family: cursive;
+font-size: 20px;
+font-weight: bold;
+text-align: center;
+background-color:rgb(161, 211, 231) ;
+font-weight: bold;
+font-style:italic;
+color:rgb(2, 48, 49) ;
+
+}
+#manar-square{
+
+height: 490px;
+display: flex;
+flex-wrap: wrap;
+padding: 25px;
+box-sizing: border-box;
+
+}
+#button{
+    padding: 10px;
+font-family: cursive;
+font-size: 15px;
+font-weight: bold;
+text-align: center;
+background-color:rgb(2, 48, 49) ;
+font-weight: bold;
+font-style:italic;
+color :rgb(255, 224, 238) ;
+font-weight: bold;
+justify-content: center;
+border-radius: 50px;
+margin-left: 45%;
+}
+.manar-square{
+
+width: 33.33%;
+height:33.33% ;
+display: flex;
+justify-content: center;
+box-sizing: border-box;
+font-family: cursive;
+font-size: 75px;
+text-transform: uppercase;
+border-radius: 15px;
+cursor: pointer;
+user-select: none;
+-moz-user-select: none;
+}
+.manar-square.highlighted{color:rgb(211, 79, 156);}
+.manar-square:hover{background-color:#eee;}
+.manar-square:nth-child(-n+6){border-bottom: 15px solid rgb(2, 48, 49) ;}
+:nth-child(3n+1),
+.manar-square:nth-child(3n+2){border-right: 15px solid rgb(2, 48, 49);}
+</style>
+</head>
+
+<body>
+   
+    <div id="manar-view">
+    
+<div id="welcome" ><P>             WELCOME TO MY GAME                </P></div>
+<div id="manar-info">
+{{infomessage}}
+</div>
+<div id="manar-square">
+    <div 
+    v-for="(square, i) in squares" 
+    v-on:click="$data.moving(i)"
+        v-bind:class="{highlighted:square.ishightlighted}"
+     class="manar-square">
+     {{ square.value }}
+    </div>
+</div>
+    </div>
+    <button id="button">PLAY AGIAN</button>
+    <script src="vue.js"></script>
+    <script src="square.js" charset="utf-8"></script>
+<script src="game.js" charset="utf-8"></script>
+<script type="text/javascript">
+
+ const button =document.getElementById("button");
+ button.addEventListener("click", (event) =>{
+
+    location.reload();
+ })
+
+let activeGame=new game();
+var vm =new Vue({
+el:'#manar-view',
+data:activeGame,
+
+
+computed:{
+
+infomessage:function(){
+
+if(this.progress){
+
+    return 'It is '+this.currentturn  + 's turn!';
+}
+if (this.winner){
+   return 'Congratulations  '+this.winner +'  wins!';
+
+/*return alert ('Congratulations  '+this.winner +'  wins!');*/
+
+}
+if (this.winner&&this.progress){
+
+return 'It was a draw!';
+
+}
+}
+
+
+}
+
+});
+</script>
+  
+</body>
+</html>       
